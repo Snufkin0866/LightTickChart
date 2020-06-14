@@ -136,7 +136,7 @@ class BitFlyerHFTChart {
         document.getElementById('enable_private_ch').onclick = function(){
             const api_key = document.getElementById('key').value
             const secret = document.getElementById('secret').value
-            self.exchange.enable_private_ch(api_key,secret)
+            self.exchange.enable_private_ch(api_key, secret)
         }
         
         // control realtime button
@@ -182,7 +182,7 @@ class BitFlyerHFTChart {
         })
 
         // subscribe visible time range change
-        self.chart.subscribeVisibleTimeRangeChange(function() {
+        self.chart.timeScale().subscribeVisibleTimeRangeChange(function() {
             var buttonVisible = self.chart.timeScale().scrollPosition() < 0;
             document.getElementById('realtime').style.display = buttonVisible ? 'block' : 'none';
         });
@@ -228,7 +228,7 @@ class BitFlyerHFTChart {
             if( m.child_order_id in self.orders_line ){
                 self.my_exec_series.removePriceLine( self.orders_line[m.child_order_id] )
                 delete self.orders_line[ m.child_order_id ]
-                console.log("remove",m.child_order_id)
+                console.log("cancel remove", m.child_order_id)
             }
         }
         
@@ -244,7 +244,7 @@ class BitFlyerHFTChart {
                     // completed
                     self.my_exec_series.removePriceLine( self.orders_line[m.child_order_id] )
                     delete self.orders_line[ m.child_order_id ]
-                    console.log("completed remove",m.child_order_id)
+                    console.log("completed remove", m.child_order_id)
                 }
             }
             if(m.side == "BUY"){
